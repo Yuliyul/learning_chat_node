@@ -1,10 +1,6 @@
 var socket = io();
 socket.on('connect', function(){
-  console.log('FE connected');
-  socket.emit('createMessage', {
-    from:"sdf@fff.fff",
-    text:"gggg gggg"
-  });
+  console.log('FE connected');  
 });
 socket.on('disconnect', function(){
   console.log('DISCONNECTED');

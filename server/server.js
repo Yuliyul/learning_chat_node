@@ -10,15 +10,16 @@ var server = http.createServer(app);
 var io = socketIo(server);
 io.on('connection', (socket)=>{
 	console.log('new connection');
-	socket.emit('newMessage', {
-		from:"mf@sdf.fd",
-		text:"gfdfgdfgdf"
-	});
 	socket.on('disconnect', ()=>{
 		console.log('client disconnected');
 	});
 	socket.on('createMessage', (message)=>{
 		console.log('client create message', message);
+		io.emit('newMessage', {
+			from:message.from,
+			text:message.text,
+			createdAt:(new Date).getTime()
+		})
 	});
 });
 app.use(express.static(publicPath));
