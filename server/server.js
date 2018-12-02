@@ -10,6 +10,14 @@ var server = http.createServer(app);
 var io = socketIo(server);
 io.on('connection', (socket)=>{
 	console.log('new connection');
+	socket.emit('newMessage', {
+		from:"Admin",
+		text:"Welcome to chat"
+	});
+	socket.broadcast.emit("newMessage", {
+		from:"Admin",
+		text:"New user join"
+	})
 	socket.on('disconnect', ()=>{
 		console.log('client disconnected');
 	});
@@ -19,7 +27,7 @@ io.on('connection', (socket)=>{
 			from:message.from,
 			text:message.text,
 			createdAt:(new Date).getTime()
-		})
+		});
 	});
 });
 app.use(express.static(publicPath));
