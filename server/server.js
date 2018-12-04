@@ -16,9 +16,10 @@ io.on('connection', (socket)=>{
 	socket.on('disconnect', ()=>{
 		console.log('client disconnected');
 	});
-	socket.on('createMessage', (message)=>{
+	socket.on('createMessage', (message, callback)=>{
 		console.log('client create message', message);
 		io.emit('newMessage', generateMessage(message.from, message.text));
+		callback('callback message from server');
 	});
 });
 app.use(express.static(publicPath));
